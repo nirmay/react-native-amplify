@@ -1,5 +1,5 @@
 #     mutation createFileAsset {
-#       createFileAsset( input: {id: 1, name: "asset1", s3location: "s3://acrmng678f2a26verificationbucket-acrmng/assets/asset.txt"}) {
+#       createFileAsset( input: {id: 1, name: "asset1", s3location: "assets/asset3.txt"}) {
 #         id
 #       }
 #     }
