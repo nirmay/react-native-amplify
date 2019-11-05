@@ -11,6 +11,40 @@ import Constants from 'expo-constants';
 
 Amplify.configure(config)
 
+// Helper function that converts bytes read from S3 into String.
+var utf8Array = function (array) {
+    var out, i, len, c;
+    var char2, char3;
+
+    out = "";
+    len = array.length;
+    i = 0;
+    while (i < len) {
+        c = array[i++];
+        switch (c >> 4) {
+            case 0: case 1: case 2: case 3: case 4: case 5: case 6: case 7:
+                // 0xxxxxxx
+                out += String.fromCharCode(c);
+                break;
+            case 12: case 13:
+                // 110x xxxx   10xx xxxx
+                char2 = array[i++];
+                out += String.fromCharCode(((c & 0x1F) << 6) | (char2 & 0x3F));
+                break;
+            case 14:
+                // 1110 xxxx  10xx xxxx  10xx xxxx
+                char2 = array[i++];
+                char3 = array[i++];
+                out += String.fromCharCode(((c & 0x0F) << 12) |
+                    ((char2 & 0x3F) << 6) |
+                    ((char3 & 0x3F) << 0));
+                break;
+        }
+    }
+    Alert.alert('Success', 'Download complete');
+    console.log("downloaded file:" + out);
+  }
+
 export default withAuthenticator(
 class App extends React.Component {
     state = {
@@ -46,16 +80,16 @@ class App extends React.Component {
     this.setState({ index: i });
   };
 
+
   // Downloads the asset using Storage API
   async downloadPhoto () {
     const { fileAssets, index } = this.state;
     if (index !== null) {
       const uri = fileAssets[index].s3location;
       console.log("downloading: ", uri);
-      let fileUri = await Storage.get(uri)
-	.then(result => console.log(result))
-	.then(result => Alert.alert('Success!','Download complete'))
-	.catch(err => console.log(error));
+      let fileUri = await Storage.get(uri, { download: true})
+	.then(result => utf8Array(result.Body))
+	.catch(err => console.log(err));
     } else {
       Alert.alert(
         'Oops',

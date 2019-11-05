@@ -1,0 +1,17 @@
+#     mutation createFileAsset {
+#       createFileAsset( input: {id: 1, name: "asset1", s3location: "s3://acrmng678f2a26verificationbucket-acrmng/assets/asset.txt"}) {
+#         id
+#       }
+#     }
+
+#     query listFileAssets {
+#       listFileAssets(filter: null, limit: null, nextToken: null) {
+#         items { id, name, s3location }
+#       } 
+#     }
+    
+#mutation deleteFileAsset {
+#  deleteFileAsset( input: {id: 4}) {
+#    id
+#  }
+#}
