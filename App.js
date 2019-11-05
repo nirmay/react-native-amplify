@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, Text, SafeAreaView, View, FlatList, TouchableHighlight, Alert, ActivityIndicator } from 'react-native'
+import { StyleSheet, Text, SafeAreaView, Dimensions, View, FlatList, TouchableHighlight, Alert, ActivityIndicator, Image } from 'react-native'
 
 import Amplify, { Storage, Analytics, API, graphqlOperation } from "aws-amplify"
 import { withAuthenticator } from 'aws-amplify-react-native'
@@ -10,6 +10,8 @@ import Button from './Button';
 import Constants from 'expo-constants';
 
 Amplify.configure(config)
+const width = Dimensions.get("window").width;
+const iconChecked = require("./checked.png");
 
 // Helper function that converts bytes read from S3 into String.
 var utf8Array = function (array) {
@@ -115,10 +117,14 @@ class App extends React.Component {
 	    data={fileAssets}
 	    renderItem={({ item, index, separators }) => (
 		<TouchableHighlight
+		    style={mystyles.boxSelect}
       		    onPress={() => this.setIndex(index)}
       		    onShowUnderlay={separators.highlight}
            	    onHideUnderlay={separators.unhighlight}>
-		    <Text style={ mystyles.item }>{item.name}</Text></TouchableHighlight>
+		    <View style={mystyles.contentChecked}>
+		    <Text style={ mystyles.item }>{item.name}</Text>
+		    {this.state.index === index && <Image source={iconChecked} style={mystyles.iconChecked}/>}
+		    </View></TouchableHighlight>
 	    )}
 	    keyExtractor={item => item.id }
         />
@@ -148,6 +154,23 @@ const mystyles = StyleSheet.create({
   spinner: {
     paddingVertical: 10,
   },
+  boxSelect: {
+		justifyContent: 'flex-start',
+		alignContent: 'center',
+		borderRadius: 5,
+		paddingLeft: 10,
+		width: width - 40
+	},
+	contentChecked: {
+		justifyContent: 'space-between',
+		alignItems: 'center',
+		height: '100%',
+		flexDirection: 'row'
+	},
+
+	iconChecked: {
+		marginRight: 20
+	},
   item: {
 	textAlign: 'center',
 	fontSize: 20,
