@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "PoC - ReactNative + Amplify",
-    "slug": "w45-rn-amplify",
+    "slug": "nirmay-reactnative-amplify",
     "privacy": "public",
     "sdkVersion": "35.0.0",
     "platforms": [
@@ -25,6 +25,8 @@
     ],
     "ios": {
       "supportsTablet": true
-    }
+    },
+    "description": "This React-native app is a Proof-of-concept for using aws-amplify-react-native to use Auth, GraphQL API and Storage.",
+    "githubUrl": "https://github.com/nirmay/react-native-amplify"
   }
 }
