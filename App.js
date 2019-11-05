@@ -69,14 +69,14 @@ class App extends React.Component {
     render() {
 	const { fileAssets, index, loading } = this.state;
 	return (
-	<View style={styles.container}>
+	<View style={mystyles.container}>
 		{loading && (
-       			<View style={styles.spinner}>
+       			<View style={mystyles.spinner}>
        			<ActivityIndicator size="small" color="#FFFFFF" />
        			</View>
        		)}
-	<SafeAreaView style={styles.container}>
-	<Text>Select item & Press Download Asset</Text>
+	<SafeAreaView> 
+	<Text style={{paddingTop: 10}}>Select asset & Press Download Asset</Text>
 	<FlatList
 	    data={fileAssets}
 	    renderItem={({ item, index, separators }) => (
@@ -84,11 +84,11 @@ class App extends React.Component {
       		    onPress={() => this.setIndex(index)}
       		    onShowUnderlay={separators.highlight}
            	    onHideUnderlay={separators.unhighlight}>
-		    <Text style={ styles.item }>{item.name}</Text></TouchableHighlight>
+		    <Text style={ mystyles.item }>{item.name}</Text></TouchableHighlight>
 	    )}
 	    keyExtractor={item => item.id }
         />
-        <View style={styles.buttonGroup}>
+        <View style={mystyles.container}>
           <Button
             title="Download Asset"
             style={{ backgroundColor: '#FF8C29' }}
@@ -105,22 +105,18 @@ class App extends React.Component {
   includeGreetings: true,
 });
 
-const styles = StyleSheet.create({
+const mystyles = StyleSheet.create({
   container: {
     flex: 1,
     marginTop: Constants.statusBarHeight,
-    backgroundColor: '#F0353D',
     alignItems: 'center',
   },
   spinner: {
     paddingVertical: 10,
   },
   item: {
-	backgroundColor: '#f9c2ff',
-	padding: 20,
-	fontSize: 18,
-	height: 35,
-	width: 200,
+	textAlign: 'center',
+	fontSize: 20,
 	borderWidth: 1,
   },
 });
