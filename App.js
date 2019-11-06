@@ -43,7 +43,7 @@ var utf8Array = function (array) {
                 break;
         }
     }
-    Alert.alert('Success', 'Download complete');
+    Alert.alert('Downloaded File content:', out);
     console.log("downloaded file:" + out);
   }
 
@@ -101,7 +101,13 @@ class App extends React.Component {
       );
     }
   };
-
+    renderSeparator = () => {
+    return (
+      <View style={{height: 1, width: "96%", backgroundColor: "#CED0CE", marginLeft: "2%"
+        }}
+      />
+    );
+  };
     render() {
 	const { fileAssets, index, loading } = this.state;
 	return (
@@ -127,6 +133,7 @@ class App extends React.Component {
 		    </View></TouchableHighlight>
 	    )}
 	    keyExtractor={item => item.id }
+	    ItemSeparatorComponent={this.renderSeparator}
         />
         <View style={mystyles.container}>
           <Button
@@ -173,7 +180,6 @@ const mystyles = StyleSheet.create({
 	},
   item: {
 	textAlign: 'center',
-	fontSize: 20,
-	borderWidth: 1,
+	fontSize: 18,
   },
 });
