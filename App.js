@@ -101,13 +101,14 @@ class App extends React.Component {
       );
     }
   };
+
     renderSeparator = () => {
-    return (
-      <View style={{height: 1, width: "96%", backgroundColor: "#CED0CE", marginLeft: "2%"
-        }}
-      />
-    );
-  };
+    return (<View style={{height: 1, width: "96%", backgroundColor: "#CED0CE", marginLeft: "2%"}}/>);
+    };
+    renderHeader = () => {
+    return (<Text style={{paddingTop: 10}}>Select asset & Press Download Asset</Text>);
+    };
+
     render() {
 	const { fileAssets, index, loading } = this.state;
 	return (
@@ -118,7 +119,7 @@ class App extends React.Component {
        			</View>
        		)}
 	<SafeAreaView> 
-	<Text style={{paddingTop: 10}}>Select asset & Press Download Asset</Text>
+	
 	<FlatList
 	    data={fileAssets}
 	    renderItem={({ item, index, separators }) => (
@@ -134,6 +135,7 @@ class App extends React.Component {
 	    )}
 	    keyExtractor={item => item.id }
 	    ItemSeparatorComponent={this.renderSeparator}
+	    ListHeaderComponent={this.renderHeader}
         />
         <View style={mystyles.container}>
           <Button
